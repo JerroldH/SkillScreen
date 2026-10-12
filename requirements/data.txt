@@ -1,0 +1,2 @@
+# Optional only for downloading/restoring raw benchmark text.
+pyarrow==25.0.1

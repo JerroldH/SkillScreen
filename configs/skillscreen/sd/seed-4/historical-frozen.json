@@ -1,0 +1,95 @@
+{
+  "run_id": "direct-sd-s4",
+  "frozen_at_utc": "2026-10-10T08:18:23.895807+00:00",
+  "base_model": {
+    "repo_id": "AlexWortega/openjev",
+    "subfolder": "qwen3.5-2b-nli-v5",
+    "revision": "a20448012c213128955ca0c693e7c943865cab77"
+  },
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary",
+    "protocol": "source_disjoint"
+  },
+  "input": {
+    "scope": "SKILL.md only",
+    "max_length": 8192,
+    "hypothesis": "This AI agent skill is malicious.",
+    "template": "Premise: {skill_text}\nHypothesis: {hypothesis}",
+    "truncation": "Premise prefix plus complete fixed hypothesis"
+  },
+  "selected_update": 470,
+  "adapter": {
+    "directory": "outputs/direct-sd-s4/checkpoint-470/adapter",
+    "files": {
+      "README.md": {
+        "bytes": 5184,
+        "sha256": "e2090742ab0cacc637f3449795111021d4420b7b3d9d55cba81961eed3367588"
+      },
+      "adapter_config.json": {
+        "bytes": 1184,
+        "sha256": "b085cfcd9a3c69e23e308f3c78b7be56f8f463bd7dc7e9009b7360d7c7b4c656"
+      },
+      "adapter_model.safetensors": {
+        "bytes": 8775920,
+        "sha256": "4629475f7da45c9030556696973ffe199effa0dc9f0bbdb242de64050f4fcc6a"
+      },
+      "chat_template.jinja": {
+        "bytes": 7755,
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+      },
+      "tokenizer.json": {
+        "bytes": 19989424,
+        "sha256": "f399b3cd12fa270d51457bb749fb30863521e8359b8a27059c71b6c2f7d6dd6c"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1232,
+        "sha256": "1b4aa963b7ff602051283ab9d794c44e4a3b65a806668a66e2312f1b641c0caa"
+      }
+    },
+    "finite_tensors": 97,
+    "parameters": 2193408
+  },
+  "cache_manifest_sha256": "15e48e004d310ad8db23eb8c419213444a472a037eb739bb3b756310fd72f03e",
+  "validation_file_sha256": "9822de75f63dd8d9abe3fc7944f4b43991a9413d776c280688236acf2c1c4d91",
+  "validation_scores_file": "outputs/direct-sd-s4/validation-step-470.csv",
+  "validation_scores_sha256": "567574b4368ef535905d876cceff91920d839fcee3c093fae2dd125cb3f939b1",
+  "test_file_sha256": "98c12120e73da2c6bbb4150e448534b94757bf35c0b2d437a1142dcc359272af",
+  "calibration": {
+    "method": "positive_sigmoid_log_odds",
+    "slope": 0.6413136400693369,
+    "intercept": -0.1011022166001281,
+    "regularization": 1e-06,
+    "fit_partition": "validation",
+    "iterations": 11,
+    "formula": "p = sigmoid(slope * (entailment - logaddexp(contradiction, neutral)) + intercept)"
+  },
+  "operating_point": {
+    "target_recall": 0.99,
+    "threshold": -2.1562525612854913,
+    "comparator": ">=",
+    "tn": 152,
+    "fp": 17,
+    "fn": 6,
+    "tp": 658,
+    "precision": 0.9748148148148148,
+    "recall": 0.9909638554216867,
+    "fpr": 0.10059171597633136,
+    "macro_f1": 0.9562433054015845,
+    "flagged_fraction": 0.8103241296518607,
+    "decision_variable": "raw_log_odds",
+    "equivalent_raw_probability_threshold": 0.10374838870587604,
+    "calibrated_probability_threshold": 0.18483358609771863
+  },
+  "evaluation_scripts_sha256": {
+    "calibrate_direct.py": "cd5941ec268de0f5494933d26d2cb17d3456ed3074b754cceb007b691a6b84f8",
+    "score_frozen_direct.py": "c0dc03870061cc240c5e263dafbd3c9f81a86383228996fca0e928685bb25380",
+    "direct_smoke.py": "24b3261b6495cc7838d6bd91afd601c9f11e7e664cd2827f6a971d96ae15fa5e",
+    "word_svm.py": "578c50523cdbc470df21f1c8ca398c4f86992e962558663c91e7181e8dddd7bf",
+    "probe_train_memory.py": "cc7bcc2a3580470e05fdf74c0112c86b219da25cd6cc15fa8532f8bf1ab46fa6",
+    "test_direct.sh": "affcc4110cc8014c971b91d84ae309d4142fde509942a233fe4f312ee77a4196"
+  },
+  "purpose": "Historical provenance only. A newly trained checkpoint must fit its own validation-only calibration and gate.",
+  "record_scope": "Historical experiment reference, with platform identifiers anonymized. Recorded SHA256 values refer to original experiment files, not this packaged copy. Current package hashes are in checksums.json."
+}

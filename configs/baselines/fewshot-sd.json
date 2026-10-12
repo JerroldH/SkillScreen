@@ -1,0 +1,100 @@
+{
+  "policy": "Pick the few-shot examples for llm_judge_prompt_fewshot_sd from the Source-Disjoint training partition, deterministically.\n\nPolicy (that of select_fewshot_examples.py, applied to the SD training partition): candidates are training records whose\ntext is non-empty and at most 262,144 characters; they are sorted by benchmark_id and shuffled with random.Random(seed);\nfor each class the first records from not-yet-used sources are taken (then any remaining records) until --per-class\nexamples are found; each text is cut to --max-tokens tokens of the Direct tokenizer with a visible \"[truncated]\" marker.\nExamples are interleaved malicious / benign. Validation and test records are never read. The MSD set cannot be shown on\nSD: three of its eight records are SD test records, from the SD test sources SkillHarm, ATR Skill Security Benchmark\nand SkillFortifyBench.",
+  "seed": 42,
+  "per_class": 4,
+  "max_tokens": 500,
+  "partition": "train",
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary",
+    "protocol": "source_disjoint"
+  },
+  "train_file_sha256": "6aeec31b076706d416114f7ebfd19efa09350f0069ddcd17b08e67c46b7eba85",
+  "tokenizer_files_sha256": {
+    "tokenizer.json": "f399b3cd12fa270d51457bb749fb30863521e8359b8a27059c71b6c2f7d6dd6c",
+    "tokenizer_config.json": "1b4aa963b7ff602051283ab9d794c44e4a3b65a806668a66e2312f1b641c0caa"
+  },
+  "examples": [
+    {
+      "benchmark_id": "ASB04_007492",
+      "label": 1,
+      "source_name": "SkillTrustBench",
+      "original_tokens": 2214,
+      "kept_tokens": 500,
+      "truncated": true,
+      "probability": 0.95,
+      "excerpt_sha256": "17804b4d49dd830e6a075aab1710802abd1d89623cf4bfac0982ed062d02dcb1"
+    },
+    {
+      "benchmark_id": "ASB04_007787",
+      "label": 0,
+      "source_name": "SkillTrustBench",
+      "original_tokens": 2392,
+      "kept_tokens": 500,
+      "truncated": true,
+      "probability": 0.05,
+      "excerpt_sha256": "bed35d684d791f6148459383db9b2813329c08b2c9d43d2a606a3001290a4898"
+    },
+    {
+      "benchmark_id": "ASB04_005850",
+      "label": 1,
+      "source_name": "MalSkillBench",
+      "original_tokens": 860,
+      "kept_tokens": 500,
+      "truncated": true,
+      "probability": 0.95,
+      "excerpt_sha256": "f7c3472e6a67e2baa4e7877c574b47bf4f532af9d1bb6664f9a259ad843c2923"
+    },
+    {
+      "benchmark_id": "ASB04_007997",
+      "label": 0,
+      "source_name": "AgentTrap",
+      "original_tokens": 214,
+      "kept_tokens": 214,
+      "truncated": false,
+      "probability": 0.05,
+      "excerpt_sha256": "371fffdb815e5bbef8732080c9bb4630701072f603d7fdb68faa66f57d98e6da"
+    },
+    {
+      "benchmark_id": "ASB04_004721",
+      "label": 1,
+      "source_name": "AgentTrap",
+      "original_tokens": 1638,
+      "kept_tokens": 500,
+      "truncated": true,
+      "probability": 0.95,
+      "excerpt_sha256": "029e8665bca0dc2ad2369705e3f341e6604439e7e3b17a9c34edb48b214f75c2"
+    },
+    {
+      "benchmark_id": "ASB04_007819",
+      "label": 0,
+      "source_name": "SkillTrojan",
+      "original_tokens": 1025,
+      "kept_tokens": 500,
+      "truncated": true,
+      "probability": 0.05,
+      "excerpt_sha256": "c8639b7e4f40781f79f3088ae1378c6b954ab97fec8329ce7e4ecc7ab3b08774"
+    },
+    {
+      "benchmark_id": "ASB04_006409",
+      "label": 1,
+      "source_name": "SkillSafetyBench",
+      "original_tokens": 1745,
+      "kept_tokens": 500,
+      "truncated": true,
+      "probability": 0.95,
+      "excerpt_sha256": "14c0097d5d62a19a52166ea1c222d50559ad4c6610cccba036bcd5b9503541ac"
+    },
+    {
+      "benchmark_id": "ASB04_007642",
+      "label": 0,
+      "source_name": "SkillTrustBench",
+      "original_tokens": 823,
+      "kept_tokens": 500,
+      "truncated": true,
+      "probability": 0.05,
+      "excerpt_sha256": "4b866223b7953052169dd798a64102d392575dd28cb07dda6f8a2a198280743c"
+    }
+  ]
+}

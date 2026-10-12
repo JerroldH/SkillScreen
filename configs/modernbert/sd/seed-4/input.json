@@ -1,0 +1,62 @@
+{
+  "kind": "encoder",
+  "run_id": "enc-sd-modernbert-large-s4",
+  "seed": 4,
+  "variant": "modernbert-large",
+  "model_name": "ModernBERT-large",
+  "report_model": "Encoder-ModernBERT-large",
+  "base_model": {
+    "repo_id": "answerdotai/ModernBERT-large",
+    "revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+    "local_dir": "outputs/base/modernbert-large",
+    "kind": "encoder",
+    "architecture": "ModernBertForSequenceClassification",
+    "model_type": "modernbert",
+    "parameters_with_head": 395833346,
+    "max_position_embeddings": 8192,
+    "hidden_size": 1024,
+    "num_hidden_layers": 28,
+    "vocab_size": 50368,
+    "files_sha256": {
+      "config.json": "55dca68059e98f0debf8eb63ab355c451c65b1f5d90fdca4754113fdaadd2cca",
+      "model.safetensors": "44510fec5d3a81a1877f225637b869495f18e55f6f23a09abb9be0acc030295f",
+      "tokenizer.json": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1",
+      "tokenizer_config.json": "3cd2017ff46d0a527e5d39cae39272eccfa1f19bb9f89b05d166aab2e38354e2",
+      "special_tokens_map.json": "ea97ecdbcc73713039d8d64dbb05e3689495c96657fbd9a18f5bed381be81049"
+    }
+  },
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary",
+    "protocol": "source_disjoint"
+  },
+  "input": {
+    "scope": "SKILL.md only",
+    "max_length": 8192,
+    "template": "[CLS] {skill_text} [SEP]",
+    "truncation": "Keep the first 8190 content tokens between the tokenizer's CLS and SEP tokens"
+  },
+  "training": {
+    "epochs": 1,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 16,
+    "optimizer": "AdamW",
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "weight_decay_scope": "parameters with at least two dimensions",
+    "warmup_fraction": 0.05,
+    "schedule": "linear",
+    "max_grad_norm": 1.0,
+    "trainable": "all parameters",
+    "head_init": "torch seed = run seed",
+    "precision": "bfloat16 autocast over float32 master weights",
+    "gradient_checkpointing": "nonreentrant on CUDA"
+  },
+  "selection": "Lowest validation FPR at recall >= 99% on the two-way log-odds; ties prefer AP, then loss; validation at the midpoint and the end of the single epoch.",
+  "decision": {
+    "score": "sigmoid(malicious_logit - benign_logit), the softmax probability of the malicious class",
+    "fixed_rule": "score >= 0.5",
+    "gate": "validation 99%-recall log-odds threshold with a validation-fitted sigmoid calibration"
+  }
+}

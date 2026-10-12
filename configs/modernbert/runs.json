@@ -1,0 +1,77 @@
+{
+  "model": "modernbert",
+  "runs": [
+    {
+      "protocol": "msd",
+      "seed": 42,
+      "run_id": "enc-gpu-modernbert-large-s42",
+      "config": "configs/modernbert/msd/seed-42/input.json",
+      "historical_frozen": "configs/modernbert/msd/seed-42/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 1,
+      "run_id": "enc-gpu-modernbert-large-s1",
+      "config": "configs/modernbert/msd/seed-1/input.json",
+      "historical_frozen": "configs/modernbert/msd/seed-1/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 2,
+      "run_id": "enc-gpu-modernbert-large-s2",
+      "config": "configs/modernbert/msd/seed-2/input.json",
+      "historical_frozen": "configs/modernbert/msd/seed-2/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 3,
+      "run_id": "enc-gpu-modernbert-large-s3",
+      "config": "configs/modernbert/msd/seed-3/input.json",
+      "historical_frozen": "configs/modernbert/msd/seed-3/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 4,
+      "run_id": "enc-gpu-modernbert-large-s4",
+      "config": "configs/modernbert/msd/seed-4/input.json",
+      "historical_frozen": "configs/modernbert/msd/seed-4/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 42,
+      "run_id": "enc-sd-modernbert-large-s42",
+      "config": "configs/modernbert/sd/seed-42/input.json",
+      "historical_frozen": "configs/modernbert/sd/seed-42/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 1,
+      "run_id": "enc-sd-modernbert-large-s1",
+      "config": "configs/modernbert/sd/seed-1/input.json",
+      "historical_frozen": "configs/modernbert/sd/seed-1/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 3,
+      "run_id": "enc-sd-modernbert-large-s3",
+      "config": "configs/modernbert/sd/seed-3/input.json",
+      "historical_frozen": "configs/modernbert/sd/seed-3/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 4,
+      "run_id": "enc-sd-modernbert-large-s4",
+      "config": "configs/modernbert/sd/seed-4/input.json",
+      "historical_frozen": "configs/modernbert/sd/seed-4/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 5,
+      "run_id": "enc-sd-modernbert-large-s5",
+      "config": "configs/modernbert/sd/seed-5/input.json",
+      "historical_frozen": "configs/modernbert/sd/seed-5/historical-frozen.json"
+    }
+  ],
+  "validation": "Static packaging checks only; GPU training and inference were not run during packaging.",
+  "run_selection": "MSD uses the complete five-seed GPU bf16 rerun. SD uses seeds 42, 1, 3, 4, 5; seed 2 collapsed and seed 5 replaced it, as documented in the paper. This is a fixed historical list, never automatic selection by result."
+}

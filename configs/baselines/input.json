@@ -1,0 +1,13 @@
+{
+  "base_model": {
+    "repo_id": "AlexWortega/openjev",
+    "subfolder": "qwen3.5-2b-nli-v5",
+    "revision": "a20448012c213128955ca0c693e7c943865cab77"
+  },
+  "max_length": 8192,
+  "hypothesis": "This AI agent skill is malicious.",
+  "tokenizer_files_sha256": {
+    "tokenizer.json": "f399b3cd12fa270d51457bb749fb30863521e8359b8a27059c71b6c2f7d6dd6c",
+    "tokenizer_config.json": "1b4aa963b7ff602051283ab9d794c44e4a3b65a806668a66e2312f1b641c0caa"
+  }
+}

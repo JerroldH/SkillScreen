@@ -1,0 +1,4 @@
+anthropic==1.8.0
+openai==3.19.2
+transformers==5.17.0
+huggingface_hub==1.33.0

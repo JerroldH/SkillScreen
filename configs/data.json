@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "repo_id": "ProtectSkills/MaliciousSkillBench",
+  "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+  "config": "primary",
+  "primary_file": {
+    "path": "primary.parquet",
+    "sha256": "1d6382017f259bde0b699d402318f3c03f16b2e8ed2363a346b77a5465f06a06"
+  },
+  "text_policy": "Exact skill_text only; no normalization, truncation, or sanitized fallback.",
+  "serialization": {
+    "encoding": "utf-8",
+    "record_order": "benchmark_id ascending",
+    "field_order": [
+      "benchmark_id",
+      "label",
+      "skill_text"
+    ],
+    "json_ensure_ascii": false,
+    "json_separators": [
+      ", ",
+      ": "
+    ],
+    "line_ending": "LF",
+    "final_newline": true
+  },
+  "protocols": {
+    "msd": {
+      "protocol": "m_structural_disjoint",
+      "official_split_file": {
+        "path": "splits/m_structural_disjoint.parquet",
+        "sha256": "f6456f678910170bc2203998d1823842112bba5d5036859f58ea409c292a34d8"
+      },
+      "manifest": {
+        "path": "data/splits/msd/split_manifest.csv",
+        "sha256": "719472f880b42723ddc50e0f83ab9dddc3a13aee37769a3c044302fed1059a94"
+      },
+      "summary": {
+        "path": "data/splits/msd/summary.json",
+        "sha256": "ee1f262a534592d2faff8e01fbce498875c3695f2631597d7a926ccba9bcdff9"
+      }
+    },
+    "sd": {
+      "protocol": "source_disjoint",
+      "official_split_file": {
+        "path": "splits/source_disjoint.parquet",
+        "sha256": "9fae37c53b6ad47070d118e9bc4cdafd82c416a68b7e74847b4e0dd9d66bd276"
+      },
+      "manifest": {
+        "path": "data/splits/sd/split_manifest.csv",
+        "sha256": "c1a5dc7fe12c93e59afa107389da35fb5623e66cc42898549811cf9fecfaaea8"
+      },
+      "summary": {
+        "path": "data/splits/sd/summary.json",
+        "sha256": "5103bfa3dd0e053929b52c83918b4a5ad590ef345ea98cd503416289d2fbda6c"
+      }
+    }
+  },
+  "metadata": {
+    "path": "data/metadata/benchmark_metadata.csv",
+    "sha256": "260467f9fd42a605ecd6ddd3e6d91a71f7f22df72370a74d0fcfb99a5141ff68"
+  }
+}

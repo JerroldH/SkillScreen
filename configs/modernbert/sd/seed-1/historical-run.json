@@ -1,0 +1,31 @@
+{
+  "epochs": 1,
+  "batch_size": 1,
+  "gradient_accumulation_steps": 16,
+  "optimizer": "AdamW",
+  "learning_rate": 2e-05,
+  "weight_decay": 0.01,
+  "warmup_steps": 24,
+  "schedule": "linear",
+  "trainable_parameters": 395833346,
+  "precision": "bfloat16 autocast over float32 master weights",
+  "gradient_checkpointing": "nonreentrant",
+  "gpu": "NVIDIA H100 80GB HBM3 MIG 1g.10gb",
+  "gpu_total_gib": 9.75,
+  "allocator_budget_gib": 9.75,
+  "peak_allocated_gib": 7.87672758102417,
+  "host_max_rss_kib": 3099020,
+  "versions": {
+    "torch": "2.11.0+localbuild",
+    "transformers": "5.17.0+localbuild",
+    "numpy": "2.4.2+localbuild",
+    "safetensors": "0.8.0+localbuild"
+  },
+  "selected_update": 470,
+  "selection_policy": "Lowest validation FPR at recall>=99% on the two-way log-odds; ties prefer AP, then loss. Scores remain uncalibrated.",
+  "max_length": 8192,
+  "input_config_sha256": "cd65fe80665970427376a3c4e08185588c15aaee58901e80c02e01223d1e58ab",
+  "frozen_config_sha256": "6dcfb88a8c93a58cffa9c4e27bf007ea78267590ba4690bb81de9b11bb1e1985",
+  "validation_report_sha256": "ae758501b3857b3766d3c013f32929ba57122e40d68b530213bb853a631f1950",
+  "record_scope": "Historical experiment reference, with platform identifiers anonymized. Recorded SHA256 values refer to original experiment files, not this packaged copy. Current package hashes are in checksums.json."
+}

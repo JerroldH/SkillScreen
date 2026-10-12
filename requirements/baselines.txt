@@ -1,0 +1,3 @@
+scikit-learn==1.9.1
+# Includes the pinned SkillSpector source for static.py.
+skillspector @ git+https://github.com/NVIDIA/SkillSpector.git@35270064e42230dbc566e4134c55b5d581355db3

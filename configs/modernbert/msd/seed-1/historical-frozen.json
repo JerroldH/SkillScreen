@@ -1,0 +1,113 @@
+{
+  "run_id": "enc-gpu-modernbert-large-s1",
+  "seed": 1,
+  "frozen_at_utc": "2026-10-10T13:36:55.377091+00:00",
+  "base_model": {
+    "repo_id": "answerdotai/ModernBERT-large",
+    "revision": "45bb4654a4d5aaff24dd11d4781fa46d39bf8c13",
+    "local_dir": "outputs/base/modernbert-large",
+    "kind": "encoder",
+    "architecture": "ModernBertForSequenceClassification",
+    "model_type": "modernbert",
+    "parameters_with_head": 395833346,
+    "max_position_embeddings": 8192,
+    "hidden_size": 1024,
+    "num_hidden_layers": 28,
+    "vocab_size": 50368,
+    "files_sha256": {
+      "config.json": "55dca68059e98f0debf8eb63ab355c451c65b1f5d90fdca4754113fdaadd2cca",
+      "model.safetensors": "44510fec5d3a81a1877f225637b869495f18e55f6f23a09abb9be0acc030295f",
+      "tokenizer.json": "9fd55248d51d33976b324fc11592e28071da7d41e0e9401dfb7082e30574b7b1",
+      "tokenizer_config.json": "3cd2017ff46d0a527e5d39cae39272eccfa1f19bb9f89b05d166aab2e38354e2",
+      "special_tokens_map.json": "ea97ecdbcc73713039d8d64dbb05e3689495c96657fbd9a18f5bed381be81049"
+    }
+  },
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary",
+    "protocol": "m_structural_disjoint"
+  },
+  "input": {
+    "scope": "SKILL.md only",
+    "max_length": 8192,
+    "template": "[CLS] {skill_text} [SEP]",
+    "truncation": "Keep the first 8190 content tokens between the tokenizer's CLS and SEP tokens"
+  },
+  "selected_update": 426,
+  "checkpoint": {
+    "directory": "outputs/enc-gpu-modernbert-large-s1/checkpoint-426/model",
+    "files": {
+      "config.json": {
+        "bytes": 2203,
+        "sha256": "4f750afb2868f1e35a93844d4ba5387e33366ec4c220633aa3544d50ace1c863"
+      },
+      "model.safetensors": {
+        "bytes": 1583351632,
+        "sha256": "711ffe405f3d144a3b54b038e94f6600df09ac177cbb87d380590d8350d321f8"
+      },
+      "tokenizer.json": {
+        "bytes": 3583228,
+        "sha256": "6c8aaa9a542084f2457eab775d4eeb51f92a70c0fd9de28d5edb0ddec3c08d30"
+      },
+      "tokenizer_config.json": {
+        "bytes": 378,
+        "sha256": "68acf857b869285d8c3ac2757ddd26e6f8030fb275d6800131521eb736084608"
+      }
+    },
+    "parameters": 395833346,
+    "tensors": 174,
+    "dtype": "F32"
+  },
+  "cache_manifest_sha256": "21dd75f0bd69326c66c7e14bd84bea94a2b38b7416754e2506f7b05420771f31",
+  "validation_file_sha256": "8d29e25d69cb4d50ef26f6e05fa529993995f8c83d21bb631950c1d6bf675cdf",
+  "validation_scores_file": "outputs/enc-gpu-modernbert-large-s1/validation-step-426.csv",
+  "validation_scores_sha256": "c9937668858e9712b4b1d07756cf850eb5d616770cf97dfbbb56d8573ebdcd37",
+  "test_file_sha256": "522266bbf3787052f9e1e51bed8588a384b49c19b6db3954c6364a7a5ab85b9d",
+  "calibration": {
+    "method": "positive_sigmoid_log_odds",
+    "slope": 0.44667773139736744,
+    "intercept": 0.5961945859194876,
+    "regularization": 1e-06,
+    "fit_partition": "validation",
+    "iterations": 11,
+    "formula": "p = sigmoid(slope * (malicious_logit - benign_logit) + intercept)"
+  },
+  "operating_point": {
+    "target_recall": 0.99,
+    "threshold": -4.7421875,
+    "comparator": ">=",
+    "tn": 167,
+    "fp": 57,
+    "fn": 7,
+    "tp": 743,
+    "precision": 0.92875,
+    "recall": 0.9906666666666667,
+    "fpr": 0.2544642857142857,
+    "macro_f1": 0.8989528286594262,
+    "flagged_fraction": 0.8213552361396304,
+    "decision_variable": "two_way_log_odds",
+    "equivalent_raw_probability_threshold": 0.008644177936723587,
+    "calibrated_probability_threshold": 0.17916205540110564
+  },
+  "fixed_rule": {
+    "field": "score",
+    "threshold": 0.5,
+    "comparator": ">=",
+    "equivalent_log_odds_threshold": 0.0
+  },
+  "evaluation_scripts_sha256": {
+    "encoder_common.py": "c9d4fd81e2cf029946a864f5c98fb0db69ccd0a716e1a987d27ed0aedb47ea88",
+    "train_encoder.py": "e93db171a57b65d3c09bdac66cf7a8f10304ea710d3f3ac2d7bdf4ba08dffad4",
+    "freeze_encoder_run.py": "304ed16399dc98bd8b60c356f9bc4d159879c48f5625b2f12d18c0a8163ce6d4",
+    "score_encoder.py": "8a186ec8626262d1d51decd20c136836f423b1a0c97e6011c27a217460dacc27",
+    "train_direct.py": "2abf2ed3f2521bc59790ff6162d43906e36885852fe603a7f7acd9c1df4dfcb0",
+    "freeze_direct_run.py": "aad54625c0a59170a5ec7808e6452edcf45bf28e7a56957c380757c8c7248807",
+    "calibrate_direct.py": "cd5941ec268de0f5494933d26d2cb17d3456ed3074b754cceb007b691a6b84f8",
+    "word_svm.py": "578c50523cdbc470df21f1c8ca398c4f86992e962558663c91e7181e8dddd7bf",
+    "direct_smoke.py": "24b3261b6495cc7838d6bd91afd601c9f11e7e664cd2827f6a971d96ae15fa5e",
+    "probe_train_memory.py": "cc7bcc2a3580470e05fdf74c0112c86b219da25cd6cc15fa8532f8bf1ab46fa6"
+  },
+  "purpose": "Historical provenance only. A newly trained checkpoint must fit its own validation-only calibration and gate.",
+  "record_scope": "Historical experiment reference, with platform identifiers anonymized. Recorded SHA256 values refer to original experiment files, not this packaged copy. Current package hashes are in checksums.json."
+}

@@ -1,0 +1,44 @@
+{
+  "epochs": 1,
+  "batch_size": 1,
+  "gradient_accumulation_steps": 16,
+  "optimizer": "AdamW",
+  "learning_rate": 0.0002,
+  "warmup_steps": 24,
+  "schedule": "linear",
+  "lora": {
+    "r": 8,
+    "alpha": 16,
+    "target_modules": [
+      "q_proj",
+      "v_proj",
+      "in_proj_qkv",
+      "out_proj"
+    ],
+    "modules_to_save": [
+      "score"
+    ]
+  },
+  "trainable_parameters": 2193408,
+  "precision": "bfloat16",
+  "gradient_checkpointing": "nonreentrant",
+  "gpu": "NVIDIA H100 80GB HBM3 MIG 1g.10gb",
+  "gpu_total_gib": 9.75,
+  "allocator_budget_gib": 9.75,
+  "peak_allocated_gib": 7.269367218017578,
+  "peak_reserved_gib": 7.443359375,
+  "host_max_rss_kib": 5303596,
+  "versions": {
+    "torch": "2.11.0+localbuild",
+    "transformers": "5.17.0+localbuild",
+    "peft": "0.21.2",
+    "numpy": "2.4.2+localbuild"
+  },
+  "selected_update": 470,
+  "selection_policy": "Lowest validation FPR at recall>=99%; ties prefer AP, then loss. Scores remain uncalibrated.",
+  "max_length": 8192,
+  "input_config_sha256": "4adc8b679e87123a2f394f8219fcc31e5bd33eee6df01ba96ebc37ec7dfbd30f",
+  "frozen_config_sha256": "46bce135d92fde4aad45646fc245ef6d8fa23962607452fea4b4687e96aaa71c",
+  "validation_report_sha256": "3d0edb4b467aaeb79c91243440de18e021a32c12f79ce7cde5285706bb54f8a0",
+  "record_scope": "Historical experiment reference, with platform identifiers anonymized. Recorded SHA256 values refer to original experiment files, not this packaged copy. Current package hashes are in checksums.json."
+}

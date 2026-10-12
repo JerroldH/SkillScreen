@@ -1,0 +1,95 @@
+{
+  "run_id": "direct-msd-s1",
+  "frozen_at_utc": "2026-10-07T07:31:02.056449+00:00",
+  "base_model": {
+    "repo_id": "AlexWortega/openjev",
+    "subfolder": "qwen3.5-2b-nli-v5",
+    "revision": "a20448012c213128955ca0c693e7c943865cab77"
+  },
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary",
+    "protocol": "m_structural_disjoint"
+  },
+  "input": {
+    "scope": "SKILL.md only",
+    "max_length": 8192,
+    "hypothesis": "This AI agent skill is malicious.",
+    "template": "Premise: {skill_text}\nHypothesis: {hypothesis}",
+    "truncation": "Premise prefix plus complete fixed hypothesis"
+  },
+  "selected_update": 426,
+  "adapter": {
+    "directory": "outputs/direct-msd-s1/checkpoint-426/adapter",
+    "files": {
+      "README.md": {
+        "bytes": 5184,
+        "sha256": "e2090742ab0cacc637f3449795111021d4420b7b3d9d55cba81961eed3367588"
+      },
+      "adapter_config.json": {
+        "bytes": 1184,
+        "sha256": "aa5567e1887f3693dc3fa91992cdd214070e17e853c99f23b6b3758f82a66373"
+      },
+      "adapter_model.safetensors": {
+        "bytes": 8775920,
+        "sha256": "39aa805a318a76496fb596d29ccfc990a507a3038e0fa501124f273a27c43475"
+      },
+      "chat_template.jinja": {
+        "bytes": 7755,
+        "sha256": "273d8e0e683b885071fb17e08d71e5f2a5ddfb5309756181681de4f5a1822d80"
+      },
+      "tokenizer.json": {
+        "bytes": 19989424,
+        "sha256": "f399b3cd12fa270d51457bb749fb30863521e8359b8a27059c71b6c2f7d6dd6c"
+      },
+      "tokenizer_config.json": {
+        "bytes": 1232,
+        "sha256": "1b4aa963b7ff602051283ab9d794c44e4a3b65a806668a66e2312f1b641c0caa"
+      }
+    },
+    "finite_tensors": 97,
+    "parameters": 2193408
+  },
+  "cache_manifest_sha256": "f810cec3275747bdb284340e1cab7664729d08387e64db7d9c40988cb8343184",
+  "validation_file_sha256": "8d29e25d69cb4d50ef26f6e05fa529993995f8c83d21bb631950c1d6bf675cdf",
+  "validation_scores_file": "outputs/direct-msd-s1/validation-step-426.csv",
+  "validation_scores_sha256": "e8a664d78516f0f5e77c79a06c4a4cb4264ff3245ab3e41cddf9f2ec0fc33890",
+  "test_file_sha256": "522266bbf3787052f9e1e51bed8588a384b49c19b6db3954c6364a7a5ab85b9d",
+  "calibration": {
+    "method": "positive_sigmoid_log_odds",
+    "slope": 0.5782297392583711,
+    "intercept": 0.5572229561262809,
+    "regularization": 1e-06,
+    "fit_partition": "validation",
+    "iterations": 11,
+    "formula": "p = sigmoid(slope * (entailment - logaddexp(contradiction, neutral)) + intercept)"
+  },
+  "operating_point": {
+    "target_recall": 0.99,
+    "threshold": -4.015625153817335,
+    "comparator": ">=",
+    "tn": 178,
+    "fp": 46,
+    "fn": 7,
+    "tp": 743,
+    "precision": 0.9416983523447402,
+    "recall": 0.9906666666666667,
+    "fpr": 0.20535714285714285,
+    "macro_f1": 0.9179888506015559,
+    "flagged_fraction": 0.8100616016427105,
+    "decision_variable": "raw_log_odds",
+    "equivalent_raw_probability_threshold": 0.017712296027209487,
+    "calibrated_probability_threshold": 0.1461988138470207
+  },
+  "evaluation_scripts_sha256": {
+    "calibrate_direct.py": "cd5941ec268de0f5494933d26d2cb17d3456ed3074b754cceb007b691a6b84f8",
+    "score_frozen_direct.py": "c0dc03870061cc240c5e263dafbd3c9f81a86383228996fca0e928685bb25380",
+    "direct_smoke.py": "24b3261b6495cc7838d6bd91afd601c9f11e7e664cd2827f6a971d96ae15fa5e",
+    "word_svm.py": "578c50523cdbc470df21f1c8ca398c4f86992e962558663c91e7181e8dddd7bf",
+    "probe_train_memory.py": "cc7bcc2a3580470e05fdf74c0112c86b219da25cd6cc15fa8532f8bf1ab46fa6",
+    "test_direct.sh": "affcc4110cc8014c971b91d84ae309d4142fde509942a233fe4f312ee77a4196"
+  },
+  "purpose": "Historical provenance only. A newly trained checkpoint must fit its own validation-only calibration and gate.",
+  "record_scope": "Historical experiment reference, with platform identifiers anonymized. Recorded SHA256 values refer to original experiment files, not this packaged copy. Current package hashes are in checksums.json."
+}

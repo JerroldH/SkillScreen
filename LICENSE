@@ -1,0 +1,37 @@
+SkillScreen — Limited Reproduction Permission / All Rights Reserved
+
+Copyright (c) 2026 the respective project contributors.
+All rights reserved except as expressly permitted below.
+
+Scope
+This notice applies only to copyright-protected project-authored material
+owned by the respective project contributors in this reproduction package.
+Ownership remains with the respective rights holders.
+
+Limited permission
+Recipients may read, execute, copy locally, and make configuration or code
+changes necessary to evaluate, review, verify, or reproduce the experiments
+covered by this package. This includes running the supplied training and
+evaluation procedures for that purpose. Coding agents may assist recipients
+acting within this permission.
+
+This permission does not grant general reuse, redistribution, sublicensing,
+commercial exploitation, or model training unrelated to reproducing the
+covered experiments. It does not authorize training an agent provider's own
+models on the covered material. Other uses require separate permission from
+the applicable rights holders.
+
+Third-party material
+Third-party materials are excluded from this notice and retain their own
+licenses and attribution requirements. This notice does not restrict rights
+granted by upstream rights holders. Separately released models remain subject
+to the terms of those releases. See THIRD_PARTY_NOTICES.md.
+
+Rights preserved
+This notice does not limit statutory exceptions or other rights required by
+applicable law. No patent or trademark license is granted.
+
+Disclaimer
+To the extent permitted by applicable law, the covered material is provided
+"AS IS", without warranties of any kind, and the rights holders disclaim
+liability arising from its use.

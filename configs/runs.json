@@ -1,0 +1,1511 @@
+{
+  "schema_version": 1,
+  "scope": "Only Table 1, MSD and SD. Fixed predictions and explicit run lists.",
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary"
+  },
+  "metrics": {
+    "score_direction": "higher means more malicious",
+    "score_field": "score",
+    "aggregation": "arithmetic mean of metrics computed independently per run",
+    "seed_std_ddof": 1,
+    "test_fpr99": "k = ceil(0.99 * malicious_count - 1e-12); threshold is kth largest positive score; flag scores >= threshold; no interpolation; missing review-policy scores become +infinity",
+    "auroc": "tie-averaged ranks of finite native scores only",
+    "archived_operating_points": "Separate audit only; never substituted for test_fpr99. Judges use their fixed native rule, not a validation-fitted recall gate.",
+    "display": {
+      "rates": "percent, one decimal",
+      "auroc": "three decimals",
+      "seed_std": "recall and FPR only, percent, one decimal"
+    }
+  },
+  "protocols": {
+    "msd": {
+      "name": "m_structural_disjoint",
+      "test_cohort": {
+        "path": "data/cohorts/msd-test.csv",
+        "sha256": "414e0fe44615db96052d2716e2bb1023e1d61b6c955775754099bc1e2583123b"
+      },
+      "records": 1947,
+      "malicious": 1500,
+      "benign": 447
+    },
+    "sd": {
+      "name": "source_disjoint",
+      "test_cohort": {
+        "path": "data/cohorts/sd-test.csv",
+        "sha256": "0882465aeb2de165ec5d27cb7af567dd6d1cf643ebe61c2fa50eff90119bdb5b"
+      },
+      "records": 1384,
+      "malicious": 839,
+      "benign": 545
+    }
+  },
+  "methods": [
+    {
+      "id": "untuned",
+      "name": "Untuned OpenJev-2B",
+      "group": "Off-the-shelf detectors",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "error"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/untuned",
+            "source_model": "untuned",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/untuned.csv",
+              "sha256": "597e2ec1a4b949c49cc98d23d198bd8a807b1645f5dd730731cb04b1b1642e46",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.004058240447193384,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1479,
+                "tn": 25,
+                "fp": 422,
+                "fn": 21
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/untuned.csv",
+              "sha256": "d6a006cc6402a6633a3fd59aa6d1383826262a9243bc92e5c147cf77307b0494",
+              "records": 974
+            }
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/untuned-r002",
+            "source_model": "untuned-r002",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/untuned-r002.csv",
+              "sha256": "a6fff4c472bbbd1889c5f9981ff4ddf830608574c7b893b534ed8407e3d45381",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.0032636842224746943,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 806,
+                "tn": 4,
+                "fp": 541,
+                "fn": 33
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-sd-s42",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/untuned-r002.csv",
+              "sha256": "053cac4cb31f7c61bcd5bcaf6fef15bdffb97e24a76af08cea29dd517203fa63",
+              "records": 833
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "typesafe",
+      "name": "TypeSafe Jev 1.13",
+      "group": "Off-the-shelf detectors",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "error"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/typesafe",
+            "source_model": "typesafe",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/typesafe.csv",
+              "sha256": "c08a67a57e84be851318d6d151a9f21fd2794edf39cad1e7902a8a3b65fcb978",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.01,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1500,
+                "tn": 0,
+                "fp": 447,
+                "fn": 0
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/typesafe.csv",
+              "sha256": "980aed21dd671d7c90b8f6390e582e41c331c990c550f3b40ddd2495470ec475",
+              "records": 974
+            }
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/typesafe",
+            "source_model": "typesafe",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/typesafe.csv",
+              "sha256": "bbb7114831a53288f9b7285d56483b48a13d0d446f35aaca7f0083ae54a8efca",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.01,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 839,
+                "tn": 0,
+                "fp": 545,
+                "fn": 0
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "typesafe-jev-sd-r001",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/typesafe.csv",
+              "sha256": "62f0e61f464bb901465866ccaa66333c1b206d1bf15e28bf960c5ad4fa188d8b",
+              "records": 833
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "static",
+      "name": "SkillSpector",
+      "group": "Off-the-shelf detectors",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 50.0,
+        "comparator": ">",
+        "unavailable_policy": "review"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/static",
+            "source_model": "static",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/static.csv",
+              "sha256": "ff77ee558aa9bc58f6e10f20133ad2317dc71c122c9682605f95e4437028ff6a",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.0,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 1500,
+                "tn": 0,
+                "fp": 447,
+                "fn": 0
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/static.csv",
+              "sha256": "7ce9165b2f9d5e369805c06454ad4c7b5f3f3f682bb0be95ea1da0cace3fba25",
+              "records": 974
+            }
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/static",
+            "source_model": "static",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/static.csv",
+              "sha256": "b698f53bed3bf356c418306353c5634b189ecd9b82fdcee0f578dd108690631e",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.0,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 839,
+                "tn": 0,
+                "fp": 545,
+                "fn": 0
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "spector-static-sd-r001",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/static.csv",
+              "sha256": "0ded09dbfc1f4a081c77cf1ea899f74d73219cfb887bc5abd769ebeaefe3d577",
+              "records": 833
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpt55",
+      "name": "GPT-5.5 (zero-shot)",
+      "group": "LLM judges",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/judge-gpt-5.5",
+            "source_model": "judge-gpt-5.5",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/judge-gpt-5.5.csv",
+              "sha256": "e93dbfba18e70300cd21e387f9e38f6054ffcd2d51942424b4fc741307015adb",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 1081,
+                "tn": 444,
+                "fp": 3,
+                "fn": 419
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.5-2026-04-23",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/judge-gpt-5.5",
+            "source_model": "judge-gpt-5.5",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/judge-gpt-5.5.csv",
+              "sha256": "328bd3ee92199b6e46616bb0fbffb357cff92f0ed967a8c8ac4083ea7d582488",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 359,
+                "tn": 540,
+                "fp": 5,
+                "fn": 480
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.5-2026-04-23",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpt55-fewshot",
+      "name": "GPT-5.5 with 8 examples",
+      "group": "LLM judges",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/judge-gpt-5.5-fewshot",
+            "source_model": "judge-gpt-5.5-fewshot",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/judge-gpt-5.5-fewshot.csv",
+              "sha256": "a027ff4d335d84f88e77a929899b23fd7e5e8c11325d225f4cfc68c20ca6ef81",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 1319,
+                "tn": 436,
+                "fp": 11,
+                "fn": 181
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.5-2026-04-23",
+            "prompt_sha256": "0625ac3528b8351a4a4cd8e3129c2c12081b82bfc6c043e1084b33261e6fc415"
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/judge-gpt-5.5-fewshot-sd",
+            "source_model": "judge-gpt-5.5-fewshot-sd",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/judge-gpt-5.5-fewshot-sd.csv",
+              "sha256": "48a3d26b32783fa844aed7b3b340e57d9abab32020565ab87a1e587d7a9a3950",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 507,
+                "tn": 533,
+                "fp": 12,
+                "fn": 332
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.5-2026-04-23",
+            "prompt_sha256": "2ab974ff6e167dbed20312253efc49babade403008c801c2ad2af8376eb31691"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpt55-reasoning",
+      "name": "GPT-5.5 with reasoning",
+      "group": "LLM judges",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/judge-gpt-5.5-reasoning",
+            "source_model": "judge-gpt-5.5-reasoning",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/judge-gpt-5.5-reasoning.csv",
+              "sha256": "56c217b51259edf6d77b907fa0008f3411a54970fb1a83c40a51e6f1dd8f9548",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 1066,
+                "tn": 441,
+                "fp": 6,
+                "fn": 434
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.5-2026-04-23",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/judge-gpt-5.5-reasoning",
+            "source_model": "judge-gpt-5.5-reasoning",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/judge-gpt-5.5-reasoning.csv",
+              "sha256": "5b2bfaa041bea882572c2a0bffc4a137c9a738ba23aabd12d78d9e2687097b99",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 283,
+                "tn": 539,
+                "fp": 6,
+                "fn": 556
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.5-2026-04-23",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ]
+      }
+    },
+    {
+      "id": "grok43",
+      "name": "Grok 4.3",
+      "group": "LLM judges",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/judge-grok-4.3",
+            "source_model": "judge-grok-4.3",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/judge-grok-4.3.csv",
+              "sha256": "f0e0405c84163973c851d16dff9f3481923df423afec1f377dc6a731fae71cee",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 1021,
+                "tn": 322,
+                "fp": 125,
+                "fn": 479
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "aimlapi",
+            "judge_model": "grok-4.3 (AI/ML API reseller, request id x-ai/grok-4-3)",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/judge-grok-4.3-sd",
+            "source_model": "judge-grok-4.3-sd",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/judge-grok-4.3-sd.csv",
+              "sha256": "88023c37e02b32591adda82b78ef9fe1c0e428282877402d601aec3adbefa413",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 305,
+                "tn": 429,
+                "fp": 116,
+                "fn": 534
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "aimlapi",
+            "judge_model": "grok-4.3 (AI/ML API reseller, request id x-ai/grok-4-3)",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ]
+      }
+    },
+    {
+      "id": "haiku45",
+      "name": "Claude Haiku 4.5",
+      "group": "LLM judges",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/judge-claude-haiku-4-5",
+            "source_model": "judge-claude-haiku-4-5",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/judge-claude-haiku-4-5.csv",
+              "sha256": "2ed9c3899bfbef687456746d227e55cbf55c811c5c4903b8c397dc2f7261f7c4",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 989,
+                "tn": 434,
+                "fp": 13,
+                "fn": 511
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "anthropic",
+            "judge_model": "claude-haiku-4-5-20251001",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/judge-claude-haiku-4-5",
+            "source_model": "judge-claude-haiku-4-5",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/judge-claude-haiku-4-5.csv",
+              "sha256": "f380de16b3e9b7d640f7fcefb1526052466318d99af8a669677e7f70c70ffa05",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 242,
+                "tn": 542,
+                "fp": 3,
+                "fn": 597
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "anthropic",
+            "judge_model": "claude-haiku-4-5-20251001",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ]
+      }
+    },
+    {
+      "id": "gpt54mini",
+      "name": "GPT-5.4 mini",
+      "group": "LLM judges",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/judge-gpt-5.4-mini",
+            "source_model": "judge-gpt-5.4-mini",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/msd/test/judge-gpt-5.4-mini.csv",
+              "sha256": "1ab54fce9b578e37be6ffb0fb1368d99b15e61c389bef16b5e972cb153a5ddc6",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 845,
+                "tn": 436,
+                "fp": 11,
+                "fn": 655
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.4-mini-2026-03-17",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/judge-gpt-5.4-mini",
+            "source_model": "judge-gpt-5.4-mini",
+            "seed": null,
+            "prediction": {
+              "path": "data/predictions/sd/test/judge-gpt-5.4-mini.csv",
+              "sha256": "431fd14ded9bc394cb0e4ba9638162e5627f6c0381ec0a9ae952d362b71938b3",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": 0.5,
+                "comparator": ">=",
+                "unavailable_policy": "review"
+              },
+              "expected_confusion": {
+                "tp": 193,
+                "tn": 540,
+                "fp": 5,
+                "fn": 646
+              },
+              "kind": "fixed_native",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null,
+            "provider": "openai",
+            "judge_model": "gpt-5.4-mini-2026-03-17",
+            "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869"
+          }
+        ]
+      }
+    },
+    {
+      "id": "skillscreen",
+      "name": "SkillScreen",
+      "group": "Trained models",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "error"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/direct",
+            "source_model": "direct",
+            "seed": 42,
+            "prediction": {
+              "path": "data/predictions/msd/test/direct.csv",
+              "sha256": "69cd67f53688734fb5d5a7cf363a9a89ca6e47a6e4e5a67d6f7a08bbf2fb33c2",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.13735826143051533,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1484,
+                "tn": 350,
+                "fp": 97,
+                "fn": 16
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/direct.csv",
+              "sha256": "018212fedb68726fd585d0a5e3120b08bbb5102a5319743cb2e6d3b9ff6384ca",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/direct-s1",
+            "source_model": "direct-s1",
+            "seed": 1,
+            "prediction": {
+              "path": "data/predictions/msd/test/direct-s1.csv",
+              "sha256": "b35768eb45262b7613d441108f5eae1a7a5b7e41c268daa832d63e7cfbdef77c",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.1461988138470207,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1481,
+                "tn": 357,
+                "fp": 90,
+                "fn": 19
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-msd-s1",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/direct-s1.csv",
+              "sha256": "259043f7a25babf09405d375e616e92c1c17e814ce21c83640d037d5f07fd9dc",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/direct-s2",
+            "source_model": "direct-s2",
+            "seed": 2,
+            "prediction": {
+              "path": "data/predictions/msd/test/direct-s2.csv",
+              "sha256": "ec86fd5c0ce1b40af51cdad81bee9179e827d7a8ef571dc4accd099154ed7da8",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.14359198003703136,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1485,
+                "tn": 352,
+                "fp": 95,
+                "fn": 15
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-msd-s2",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/direct-s2.csv",
+              "sha256": "32f52173e6c7de9a828379eeb1e019e9c6bb8f723db911ed6e7ad272a33b8407",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/direct-s3",
+            "source_model": "direct-s3",
+            "seed": 3,
+            "prediction": {
+              "path": "data/predictions/msd/test/direct-s3.csv",
+              "sha256": "858a0ec81936f7fb0197cf5ea9cc2c4abdb38b73375ee09dea80cdf0a1a15c5d",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.16429488970984457,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1484,
+                "tn": 357,
+                "fp": 90,
+                "fn": 16
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-msd-s3",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/direct-s3.csv",
+              "sha256": "69d75b97eb65ee82aa030137f56cfbe3dc7ed159d7032786af287dfea7cafb1f",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/direct-s4",
+            "source_model": "direct-s4",
+            "seed": 4,
+            "prediction": {
+              "path": "data/predictions/msd/test/direct-s4.csv",
+              "sha256": "ca95f7487d726ad1174964aef8a20a3274acc90054712c7d48fa66488e8c3737",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.13421654123841034,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1487,
+                "tn": 340,
+                "fp": 107,
+                "fn": 13
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-msd-s4",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/direct-s4.csv",
+              "sha256": "0143b4b3460516f4c13481a1ad0ebb073b596d6d3377922453befadddde0061a",
+              "records": 974
+            }
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/direct-s42",
+            "source_model": "direct-s42",
+            "seed": 42,
+            "prediction": {
+              "path": "data/predictions/sd/test/direct-s42.csv",
+              "sha256": "f39e22d6dd2e98b1da4072a01a8672761eef420c6372675a9c2e317b51c1a5c4",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.19331618317361932,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 830,
+                "tn": 242,
+                "fp": 303,
+                "fn": 9
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-sd-s42",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/direct-s42.csv",
+              "sha256": "8c1638d678c386d271b4a671a317509f9f5314b3e0e030bdfd6bd0673e8241e3",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/direct-s1",
+            "source_model": "direct-s1",
+            "seed": 1,
+            "prediction": {
+              "path": "data/predictions/sd/test/direct-s1.csv",
+              "sha256": "960be25e53cb9436f7d747ea7d68f0accde3734ed8115f3aa67cbeae2f306773",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.23232400756779792,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 834,
+                "tn": 230,
+                "fp": 315,
+                "fn": 5
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-sd-s1",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/direct-s1.csv",
+              "sha256": "b6a4f2c6cf804118764e8001a3e59f138150335902509ed2c9dda7ae9dc9be98",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/direct-s2",
+            "source_model": "direct-s2",
+            "seed": 2,
+            "prediction": {
+              "path": "data/predictions/sd/test/direct-s2.csv",
+              "sha256": "06c0c0450ed5e8ebff83ecab50031269b7207ff7ac7db3c0150de3beaea740a1",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.1701704958482028,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 836,
+                "tn": 224,
+                "fp": 321,
+                "fn": 3
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-sd-s2",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/direct-s2.csv",
+              "sha256": "f82271dcdd46509174fda14b7917121c34e416a891bd29bfcee340f7855e5954",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/direct-s3",
+            "source_model": "direct-s3",
+            "seed": 3,
+            "prediction": {
+              "path": "data/predictions/sd/test/direct-s3.csv",
+              "sha256": "6a4a053ad78062ce774ee6e86636746c4a8316d0d166deeb0dd575cde34823b2",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.1408950619437765,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 833,
+                "tn": 197,
+                "fp": 348,
+                "fn": 6
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-sd-s3",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/direct-s3.csv",
+              "sha256": "f5e3443ef98e4c153a13e10097f39796518a656f7aa12a11184ec4dc530b6419",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/direct-s4",
+            "source_model": "direct-s4",
+            "seed": 4,
+            "prediction": {
+              "path": "data/predictions/sd/test/direct-s4.csv",
+              "sha256": "87384c8be91d822b26fc0fa2365ac312058e3e6b4294aef22efcca8c8e3871a5",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.18483358609771863,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 836,
+                "tn": 220,
+                "fp": 325,
+                "fn": 3
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "direct-sd-s4",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/direct-s4.csv",
+              "sha256": "31bc8d19b47871e9ff1294cb912f6bf8f6f34e7baeac656bd26ac2be37ceb3d2",
+              "records": 833
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "modernbert",
+      "name": "ModernBERT-large",
+      "group": "Trained models",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "error"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/encoder-modernbert-large-gpu-s42",
+            "source_model": "encoder-modernbert-large-gpu-s42",
+            "seed": 42,
+            "prediction": {
+              "path": "data/predictions/msd/test/encoder-modernbert-large-gpu-s42.csv",
+              "sha256": "6aab17c55c091b0ee02b306cf0120f514d537f9e849a578b9b79ffb588b6e315",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.12363450662657681,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1485,
+                "tn": 277,
+                "fp": 170,
+                "fn": 15
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-gpu-modernbert-large-s42",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/encoder-modernbert-large-gpu-s42.csv",
+              "sha256": "df45090e243eaa83d10250099ba59dd21353e7bbad6f370d171c74a59e0bc995",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/encoder-modernbert-large-gpu-s1",
+            "source_model": "encoder-modernbert-large-gpu-s1",
+            "seed": 1,
+            "prediction": {
+              "path": "data/predictions/msd/test/encoder-modernbert-large-gpu-s1.csv",
+              "sha256": "18a3e9d8141dcf27bbf1daa81e42498f8803a701ce1818b7269c8410a0416bdb",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.17916205540110564,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1482,
+                "tn": 335,
+                "fp": 112,
+                "fn": 18
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-gpu-modernbert-large-s1",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/encoder-modernbert-large-gpu-s1.csv",
+              "sha256": "448f3219c6e7c3f37a26d2038562ce7f5bee93cbe83a772bd9701b4677451877",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/encoder-modernbert-large-gpu-s2",
+            "source_model": "encoder-modernbert-large-gpu-s2",
+            "seed": 2,
+            "prediction": {
+              "path": "data/predictions/msd/test/encoder-modernbert-large-gpu-s2.csv",
+              "sha256": "5006f959d2cb3b52f0e97faef8b023b4293ae7f70031fc7a33899c4968fb90d2",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.11118781950309914,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1487,
+                "tn": 294,
+                "fp": 153,
+                "fn": 13
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-gpu-modernbert-large-s2",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/encoder-modernbert-large-gpu-s2.csv",
+              "sha256": "3afb2f5b36dd6cc3e38667270c3ddd13079b0ecdaa9fa611b9fe542a845ca2a0",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/encoder-modernbert-large-gpu-s3",
+            "source_model": "encoder-modernbert-large-gpu-s3",
+            "seed": 3,
+            "prediction": {
+              "path": "data/predictions/msd/test/encoder-modernbert-large-gpu-s3.csv",
+              "sha256": "eb0187cc5993c7cde662a8dc5dfbdc8c2c0b2ed407cab4a84b8008e4e6322cce",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.19198295693399628,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1477,
+                "tn": 334,
+                "fp": 113,
+                "fn": 23
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-gpu-modernbert-large-s3",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/encoder-modernbert-large-gpu-s3.csv",
+              "sha256": "aef4689c429d2d054e5d97d36a740b4a24a08f1062d5e469baaeda78e9e11a31",
+              "records": 974
+            }
+          },
+          {
+            "id": "msd/encoder-modernbert-large-gpu-s4",
+            "source_model": "encoder-modernbert-large-gpu-s4",
+            "seed": 4,
+            "prediction": {
+              "path": "data/predictions/msd/test/encoder-modernbert-large-gpu-s4.csv",
+              "sha256": "bc88926350cddc889c76f39fe1ba7e8c1522b9563f7d8136351d26950a5b46de",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.16289344090383898,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1485,
+                "tn": 320,
+                "fp": 127,
+                "fn": 15
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-gpu-modernbert-large-s4",
+            "validation_prediction": {
+              "path": "data/predictions/msd/validation/encoder-modernbert-large-gpu-s4.csv",
+              "sha256": "d35ca0c1acd8f95ad8c8a20b59576e87a72783e56382c7b35310a6499f8ff327",
+              "records": 974
+            }
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/encoder-modernbert-large-s42",
+            "source_model": "encoder-modernbert-large-s42",
+            "seed": 42,
+            "prediction": {
+              "path": "data/predictions/sd/test/encoder-modernbert-large-s42.csv",
+              "sha256": "ab99a18f6c83e7dd12c95c6137a5af8259bacafb3a8065ec2ca99f3d1851eabe",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.14115638853071946,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 821,
+                "tn": 160,
+                "fp": 385,
+                "fn": 18
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-sd-modernbert-large-s42",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/encoder-modernbert-large-s42.csv",
+              "sha256": "8c5cea57f97b0785180e7a86eead3f5eb80d4fa0778c2dc3dfe7057f061f9d86",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/encoder-modernbert-large-s1",
+            "source_model": "encoder-modernbert-large-s1",
+            "seed": 1,
+            "prediction": {
+              "path": "data/predictions/sd/test/encoder-modernbert-large-s1.csv",
+              "sha256": "1d146d52b23f5b7959fb5daa524b5fb204b0c20c407844df2b57d153f6a879d4",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.34676024585711196,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 796,
+                "tn": 209,
+                "fp": 336,
+                "fn": 43
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-sd-modernbert-large-s1",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/encoder-modernbert-large-s1.csv",
+              "sha256": "81c0ff5c914737786c03586263fd9cf846960b8404defe98a3b90147875e83d0",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/encoder-modernbert-large-s3",
+            "source_model": "encoder-modernbert-large-s3",
+            "seed": 3,
+            "prediction": {
+              "path": "data/predictions/sd/test/encoder-modernbert-large-s3.csv",
+              "sha256": "2edb73b0a96456b17bdaad5c81146b2820387af1a348d3d55e99c298a4f2b91e",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.14170972645080898,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 835,
+                "tn": 160,
+                "fp": 385,
+                "fn": 4
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-sd-modernbert-large-s3",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/encoder-modernbert-large-s3.csv",
+              "sha256": "dbd8a205e26bcf42b78003011487689c08e636744eddc4f1551b470b8d521e64",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/encoder-modernbert-large-s4",
+            "source_model": "encoder-modernbert-large-s4",
+            "seed": 4,
+            "prediction": {
+              "path": "data/predictions/sd/test/encoder-modernbert-large-s4.csv",
+              "sha256": "e36ca2a06f706dc74957a8711daa476bb7279f079d6710533eb74e2f175ae5e6",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.10888071408506128,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 838,
+                "tn": 124,
+                "fp": 421,
+                "fn": 1
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-sd-modernbert-large-s4",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/encoder-modernbert-large-s4.csv",
+              "sha256": "2f2f26f19da620813965b8408b5ec7654d5adbeb4b575268b4abc0d456da40bf",
+              "records": 833
+            }
+          },
+          {
+            "id": "sd/encoder-modernbert-large-s5",
+            "source_model": "encoder-modernbert-large-s5",
+            "seed": 5,
+            "prediction": {
+              "path": "data/predictions/sd/test/encoder-modernbert-large-s5.csv",
+              "sha256": "d639bfe373ec55008e49dc79e8de4d1759c1d03119fcb0595f68d7a3e0784ba1",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "calibrated_probability",
+                "threshold": 0.11451624397813416,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 820,
+                "tn": 89,
+                "fp": 456,
+                "fn": 19
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "enc-sd-modernbert-large-s5",
+            "validation_prediction": {
+              "path": "data/predictions/sd/validation/encoder-modernbert-large-s5.csv",
+              "sha256": "4bd2444f4d0564948d85a8385f5cf13cfd47b682fc1471d7d550ad70c461c258",
+              "records": 833
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "word-svm",
+      "name": "Word-SVM",
+      "group": "Trained models",
+      "fixed_rule": {
+        "field": "score",
+        "threshold": 0.0,
+        "comparator": ">=",
+        "unavailable_policy": "error"
+      },
+      "protocols": {
+        "msd": [
+          {
+            "id": "msd/word-svm",
+            "source_model": "word-svm",
+            "seed": 42,
+            "prediction": {
+              "path": "data/predictions/msd/test/word-svm.csv",
+              "sha256": "a8f6a3bae17d4bfcbe168a2406766d2819e5420a48998a806414f47318e70a7e",
+              "records": 1947
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": -0.6281281855135318,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 1489,
+                "tn": 176,
+                "fp": 271,
+                "fn": 11
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": null,
+            "validation_prediction": null
+          }
+        ],
+        "sd": [
+          {
+            "id": "sd/word-svm-r002",
+            "source_model": "word-svm-r002",
+            "seed": 42,
+            "prediction": {
+              "path": "data/predictions/sd/test/word-svm-r002.csv",
+              "sha256": "4b1cd04e8de2851cc02830d4d8348aa4e736005d98a307a9021e1b525e320eea",
+              "records": 1384
+            },
+            "archived_operating_point": {
+              "rule": {
+                "field": "score",
+                "threshold": -0.4478634304337821,
+                "comparator": ">=",
+                "unavailable_policy": "error"
+              },
+              "expected_confusion": {
+                "tp": 837,
+                "tn": 42,
+                "fp": 503,
+                "fn": 2
+              },
+              "kind": "validation_selected",
+              "included_in_table1": false
+            },
+            "run_id": "word-svm-sd-r002",
+            "validation_prediction": null
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "msd": {
+    "model": "jev-1.13.0",
+    "endpoint": "https://api.typesafe.ai/v1/systemone",
+    "question_type": "noul",
+    "docs_checked_date": "2026-10-05",
+    "frozen_at_utc": "2026-10-06T02:35:49.948414+00:00",
+    "decision_rule": {
+      "threshold": 0.5,
+      "comparator": ">=",
+      "unavailable_policy": "error"
+    },
+    "frozen_source_sha256": "4e8c9d821c8afd0aaa30461175b4ead036d6ecc16e2464d3a4c4ebda0350fa80"
+  },
+  "sd": {
+    "model": "jev-1.13.0",
+    "endpoint": "https://api.typesafe.ai/v1/systemone",
+    "question_type": "noul",
+    "docs_checked_date": "2026-10-10",
+    "frozen_at_utc": "2026-10-11T02:39:54.417022+00:00",
+    "decision_rule": {
+      "threshold": 0.5,
+      "comparator": ">=",
+      "unavailable_policy": "error"
+    },
+    "frozen_source_sha256": "0d472b3d2f32ce0c43fdb0d6e2a52d6541e8157399c3f9c27e826eb0eaf3c39b"
+  }
+}

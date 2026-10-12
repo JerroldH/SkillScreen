@@ -1,0 +1,21 @@
+{
+  "route": "direct",
+  "base_model": {
+    "repo_id": "AlexWortega/openjev",
+    "subfolder": "qwen3.5-2b-nli-v5",
+    "revision": "a20448012c213128955ca0c693e7c943865cab77"
+  },
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary",
+    "protocol": "source_disjoint"
+  },
+  "hypothesis": "This AI agent skill is malicious.",
+  "adaptation": {
+    "method": "lora",
+    "train_classification_head": true
+  },
+  "seed": 2,
+  "run_id": "direct-sd-s2"
+}

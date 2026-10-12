@@ -1,0 +1,501 @@
+{
+  "models": [
+    {
+      "method": "gpt-5.5",
+      "protocol": "msd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.5",
+        "thinking": "reasoning_effort none",
+        "request": {
+          "max_completion_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T05:01:23.850560+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.5-2026-04-23"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "gpt-5.5-fewshot",
+      "protocol": "msd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.5",
+        "thinking": "reasoning_effort none",
+        "request": {
+          "max_completion_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        },
+        "prompt_module": "fewshot_prompt"
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T20:57:32.970377+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.5-2026-04-23"
+      ],
+      "prompt_sha256": "0625ac3528b8351a4a4cd8e3129c2c12081b82bfc6c043e1084b33261e6fc415",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "gpt-5.5-reasoning",
+      "protocol": "msd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.5",
+        "thinking": "reasoning_effort medium (reasoning tokens billed as output)",
+        "request": {
+          "max_completion_tokens": 8192,
+          "reasoning_effort": "medium"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T20:57:44.100263+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.5-2026-04-23"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "grok-4.3",
+      "protocol": "msd",
+      "entry": {
+        "provider": "aimlapi",
+        "id": "x-ai/grok-4-3",
+        "returned_id_prefix": "grok-4.3",
+        "upstream_model": "grok-4.3",
+        "thinking": "Requested reasoning_effort='none'; historical returned usage nevertheless reported reasoning tokens. The reseller's upstream handling of this field is unverified.",
+        "request": {
+          "max_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "sync",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "aimlapi",
+      "provider": {
+        "sdk": "openai",
+        "base_url": "https://api.aimlapi.com/v1",
+        "key_env": "AIMLAPI_API_KEY",
+        "concurrency": 4,
+        "batch": false,
+        "store_false": false
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T05:24:48.441751+00:00"
+      },
+      "historical_returned_models": [
+        "grok-4.3"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "historical_reported_usage": {
+        "records": 1947,
+        "reasoning_tokens": 737572,
+        "output_tokens": 764780
+      }
+    },
+    {
+      "method": "claude-haiku-4-5",
+      "protocol": "msd",
+      "entry": {
+        "provider": "anthropic",
+        "id": "claude-haiku-4-5",
+        "thinking": "off by default; no thinking or effort field",
+        "request": {
+          "max_tokens": 256,
+          "thinking": null
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "anthropic",
+      "provider": {
+        "sdk": "anthropic",
+        "base_url": null,
+        "key_env": "ANTHROPIC_API_KEY",
+        "concurrency": 4,
+        "batch": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T04:20:57.341704+00:00"
+      },
+      "historical_returned_models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "gpt-5.4-mini",
+      "protocol": "msd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.4-mini",
+        "thinking": "reasoning_effort none",
+        "request": {
+          "max_completion_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T04:36:23.931673+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "gpt-5.5",
+      "protocol": "sd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.5",
+        "thinking": "reasoning_effort none",
+        "request": {
+          "max_completion_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T19:46:43.534596+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.5-2026-04-23"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "gpt-5.5-fewshot",
+      "protocol": "sd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.5",
+        "thinking": "reasoning_effort none",
+        "request": {
+          "max_completion_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "batch"
+        },
+        "prompt_module": "fewshot_prompt"
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-11T01:55:33.234660+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.5-2026-04-23"
+      ],
+      "prompt_sha256": "2ab974ff6e167dbed20312253efc49babade403008c801c2ad2af8376eb31691",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "gpt-5.5-reasoning",
+      "protocol": "sd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.5",
+        "thinking": "reasoning_effort medium (reasoning tokens billed as output)",
+        "request": {
+          "max_completion_tokens": 8192,
+          "reasoning_effort": "medium"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-11T01:33:13.132439+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.5-2026-04-23"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "grok-4.3",
+      "protocol": "sd",
+      "entry": {
+        "provider": "aimlapi",
+        "id": "x-ai/grok-4-3",
+        "returned_id_prefix": "grok-4.3",
+        "upstream_model": "grok-4.3",
+        "thinking": "Requested reasoning_effort='none'; historical returned usage nevertheless reported reasoning tokens. The reseller's upstream handling of this field is unverified.",
+        "request": {
+          "max_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "sync",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "aimlapi",
+      "provider": {
+        "sdk": "openai",
+        "base_url": "https://api.aimlapi.com/v1",
+        "key_env": "AIMLAPI_API_KEY",
+        "concurrency": 1,
+        "batch": false,
+        "store_false": false
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-11T14:16:38.692765+00:00"
+      },
+      "historical_returned_models": [
+        "grok-4.3"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      },
+      "historical_reported_usage": {
+        "records": 1384,
+        "reasoning_tokens": 463143,
+        "output_tokens": 482491
+      }
+    },
+    {
+      "method": "claude-haiku-4-5",
+      "protocol": "sd",
+      "entry": {
+        "provider": "anthropic",
+        "id": "claude-haiku-4-5",
+        "thinking": "off by default; no thinking or effort field",
+        "request": {
+          "max_tokens": 256,
+          "thinking": null
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "anthropic",
+      "provider": {
+        "sdk": "anthropic",
+        "base_url": null,
+        "key_env": "ANTHROPIC_API_KEY",
+        "concurrency": 4,
+        "batch": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T04:26:49.242789+00:00"
+      },
+      "historical_returned_models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    },
+    {
+      "method": "gpt-5.4-mini",
+      "protocol": "sd",
+      "entry": {
+        "provider": "openai",
+        "id": "gpt-5.4-mini",
+        "thinking": "reasoning_effort none",
+        "request": {
+          "max_completion_tokens": 256,
+          "reasoning_effort": "none"
+        },
+        "mode": {
+          "test": "batch",
+          "sanity": "sync"
+        }
+      },
+      "provider_name": "openai",
+      "provider": {
+        "sdk": "openai",
+        "base_url": null,
+        "key_env": "OPENAI_API_KEY",
+        "concurrency": 6,
+        "batch": true,
+        "store_false": true
+      },
+      "historical_call_timestamps": {
+        "run.completed_at_utc": "2026-10-07T05:07:52.454624+00:00"
+      },
+      "historical_returned_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "prompt_sha256": "97393967db789e90da8488dc5ba88decde4c6e13e8f1f97ee0869039a922e869",
+      "rule": {
+        "field": "score",
+        "threshold": 0.5,
+        "comparator": ">=",
+        "unavailable_policy": "review"
+      }
+    }
+  ],
+  "failure_policy": {
+    "sdk_retries": 4,
+    "outer_retries": 1,
+    "outer_delay_seconds": 30,
+    "parse_retry": 1,
+    "batch_fallback_to_sync": [
+      "batch_errored",
+      "batch_expired",
+      "batch_canceled",
+      "parse_failure"
+    ],
+    "unavailable_at_default_threshold": "review",
+    "rank_metrics": "finite native scores only",
+    "max_token_stops": "unavailable, no invented score"
+  }
+}

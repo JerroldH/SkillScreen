@@ -1,0 +1,109 @@
+{
+  "model": "skillscreen",
+  "runs": [
+    {
+      "protocol": "msd",
+      "seed": 42,
+      "run_id": "direct-msd-r001",
+      "config": "configs/skillscreen/msd/seed-42/input.json",
+      "historical_frozen": "configs/skillscreen/msd/seed-42/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 1,
+      "run_id": "direct-msd-s1",
+      "config": "configs/skillscreen/msd/seed-1/input.json",
+      "historical_frozen": "configs/skillscreen/msd/seed-1/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 2,
+      "run_id": "direct-msd-s2",
+      "config": "configs/skillscreen/msd/seed-2/input.json",
+      "historical_frozen": "configs/skillscreen/msd/seed-2/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 3,
+      "run_id": "direct-msd-s3",
+      "config": "configs/skillscreen/msd/seed-3/input.json",
+      "historical_frozen": "configs/skillscreen/msd/seed-3/historical-frozen.json"
+    },
+    {
+      "protocol": "msd",
+      "seed": 4,
+      "run_id": "direct-msd-s4",
+      "config": "configs/skillscreen/msd/seed-4/input.json",
+      "historical_frozen": "configs/skillscreen/msd/seed-4/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 42,
+      "run_id": "direct-sd-s42",
+      "config": "configs/skillscreen/sd/seed-42/input.json",
+      "historical_frozen": "configs/skillscreen/sd/seed-42/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 1,
+      "run_id": "direct-sd-s1",
+      "config": "configs/skillscreen/sd/seed-1/input.json",
+      "historical_frozen": "configs/skillscreen/sd/seed-1/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 2,
+      "run_id": "direct-sd-s2",
+      "config": "configs/skillscreen/sd/seed-2/input.json",
+      "historical_frozen": "configs/skillscreen/sd/seed-2/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 3,
+      "run_id": "direct-sd-s3",
+      "config": "configs/skillscreen/sd/seed-3/input.json",
+      "historical_frozen": "configs/skillscreen/sd/seed-3/historical-frozen.json"
+    },
+    {
+      "protocol": "sd",
+      "seed": 4,
+      "run_id": "direct-sd-s4",
+      "config": "configs/skillscreen/sd/seed-4/input.json",
+      "historical_frozen": "configs/skillscreen/sd/seed-4/historical-frozen.json"
+    }
+  ],
+  "validation": "Static packaging checks only; GPU training and inference were not run during packaging.",
+  "training_recipe": {
+    "epochs": 1,
+    "max_length": 8192,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 16,
+    "optimizer": "torch.optim.AdamW",
+    "learning_rate": 0.0002,
+    "weight_decay": 0.01,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "warmup_fraction": 0.05,
+    "schedule": "linear",
+    "max_grad_norm": 1.0,
+    "lora": {
+      "r": 8,
+      "alpha": 16,
+      "dropout": 0.0,
+      "target_modules": [
+        "q_proj",
+        "v_proj",
+        "in_proj_qkv",
+        "out_proj"
+      ],
+      "modules_to_save": [
+        "score"
+      ]
+    },
+    "objective": "Three-logit cross entropy. Benign=contradiction 0; malicious=entailment 1; no neutral targets, class weighting, or oversampling.",
+    "checkpoint_selection": "Validation at midpoint and end. Lowest FPR at >=99% validation recall, then highest AP, then lowest loss."
+  }
+}

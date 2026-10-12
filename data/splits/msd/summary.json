@@ -1,0 +1,71 @@
+{
+  "dataset": {
+    "repo_id": "ProtectSkills/MaliciousSkillBench",
+    "revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "config": "primary",
+    "protocol": "m_structural_disjoint"
+  },
+  "primary_records": 9740,
+  "official_counts": {
+    "train": {
+      "total": 6818,
+      "benign": 1564,
+      "malicious": 5254
+    },
+    "validation": {
+      "total": 974,
+      "benign": 224,
+      "malicious": 750
+    },
+    "test": {
+      "total": 1948,
+      "benign": 447,
+      "malicious": 1501
+    },
+    "excluded": {
+      "total": 0,
+      "benign": 0,
+      "malicious": 0
+    }
+  },
+  "prepared_counts": {
+    "train": {
+      "total": 6814,
+      "benign": 1564,
+      "malicious": 5250
+    },
+    "validation": {
+      "total": 974,
+      "benign": 224,
+      "malicious": 750
+    },
+    "test": {
+      "total": 1947,
+      "benign": 447,
+      "malicious": 1500
+    }
+  },
+  "excluded_counts": {
+    "missing_exact_text": 5
+  },
+  "text_policy": "Exact skill_text only; no normalization, truncation, or sanitized fallback.",
+  "checks": {
+    "unique_ids": true,
+    "partition_id_overlap": 0,
+    "partition_exact_text_overlap": 0
+  },
+  "files": {
+    "train": {
+      "path": "data/local/train.jsonl",
+      "sha256": "7954e634ffc0e1dc3b2f6071d2d5790a971f15b8f0ed20b268f1c4da735a4cb2"
+    },
+    "validation": {
+      "path": "data/local/validation.jsonl",
+      "sha256": "8d29e25d69cb4d50ef26f6e05fa529993995f8c83d21bb631950c1d6bf675cdf"
+    },
+    "test": {
+      "path": "data/local/test.jsonl",
+      "sha256": "522266bbf3787052f9e1e51bed8588a384b49c19b6db3954c6364a7a5ab85b9d"
+    }
+  }
+}

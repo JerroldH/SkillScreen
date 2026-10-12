@@ -1,0 +1,34 @@
+{
+  "seed": 42,
+  "upstream": "https://github.com/protectskills/MaliciousSkillBench/blob/893afd609be22a2dfac5a2b94bbebb4eeb99515e/baselines/run_baselines.py",
+  "tfidf": {
+    "ngram_range": [
+      1,
+      2
+    ],
+    "min_df": 2,
+    "max_df": 0.995,
+    "max_features": 120000,
+    "sublinear_tf": true,
+    "strip_accents": "unicode",
+    "dtype": "float32"
+  },
+  "svm": {
+    "C": 1.0,
+    "class_weight": "balanced",
+    "random_state": 42,
+    "max_iter": 6000
+  },
+  "table_rule": {
+    "threshold": 0,
+    "comparator": ">="
+  },
+  "estimator_native_rule": {
+    "threshold": 0,
+    "comparator": ">"
+  },
+  "note": "Vocabulary, IDF, and estimator fit train only; original exact zero-margin convention differs from Table 1 convention and is recorded separately.",
+  "original_source": "scripts/word_svm.py",
+  "original_source_sha256": "578c50523cdbc470df21f1c8ca398c4f86992e962558663c91e7181e8dddd7bf",
+  "source": "scripts/baselines/word_svm.py"
+}

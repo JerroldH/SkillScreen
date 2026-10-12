@@ -1,0 +1,12 @@
+{
+  "repo_url": "https://github.com/NVIDIA/SkillSpector",
+  "revision": "35270064e42230dbc566e4134c55b5d581355db3",
+  "version": "2.12.0",
+  "mode": "static_offline",
+  "input": "One neutral-named SKILL.md file only; no companion files or transitive scans",
+  "llm": false,
+  "network": false,
+  "suppression_baseline": null,
+  "default_threshold": 50,
+  "default_comparator": ">"
+}

@@ -1,0 +1,8 @@
+{
+  "f0a83e031720603e9c538e51e03e8c790b403702b497c409e55db6d7736f2ced": {
+    "original_tokens": 15737967,
+    "hypothesis": "This AI agent skill is malicious.",
+    "tokenizer_sha256": "537fdfe1168e1c78d55cc922b74633986d27aa8aac96cdbe3529523a0963368e",
+    "source_tokenizer_sha256": "a9e4ec65d94573ae188f39892b6a451687e1a012c91902741393467472d03dfb"
+  }
+}

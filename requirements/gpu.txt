@@ -1,0 +1,11 @@
+# Linux / Python 3.11+ / CUDA GPU supporting bfloat16.
+# Public package equivalents of the recorded cluster builds, not bit-identical
+# to the platform-specific local wheels. Core versions are retained per run.
+torch==2.11.0
+transformers==5.17.0
+peft==0.21.2
+numpy==2.4.2
+scipy==1.18.1
+scikit-learn==1.9.1
+safetensors==0.8.0
+huggingface_hub==1.33.0
