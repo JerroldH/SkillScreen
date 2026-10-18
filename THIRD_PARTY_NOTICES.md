@@ -1,6 +1,6 @@
 # Third-party materials
 
-The package license applies only to project-authored material. Upstream rights and attribution remain in force.
+Project-authored code, configuration, and code examples are licensed under Apache-2.0. Project-authored documentation, predictions, reference results, and citation metadata are licensed under CC BY 4.0. See README.md for scope and LICENSE / LICENSE-CC-BY-4.0 for the terms. Upstream rights and attribution remain in force.
 
 ## MaliciousSkillBench
 

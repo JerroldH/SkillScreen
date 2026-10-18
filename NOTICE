@@ -1,0 +1,13 @@
+SkillScreen
+Copyright (c) 2026 the respective SkillScreen contributors.
+
+Research paper:
+SkillScreen: High-Recall Screening of Malicious Agent Skills with Decision Models
+Jerrold Huang, Junwei Quan, Saiyue Lyu, Zihan Guo, Yingqiang Ge.
+https://arxiv.org/abs/2610.17727
+
+Project: https://jerroldh.github.io/SkillScreen-webpage/
+This release: https://github.com/JerroldH/SkillScreen
+
+See README.md for the material covered by Apache-2.0 and CC BY 4.0.
+Third-party attribution and license notices are in THIRD_PARTY_NOTICES.md.

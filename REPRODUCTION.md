@@ -100,4 +100,4 @@ Data restoration passed a fresh network download into an empty cache, including 
 
 No model was trained or scored on a GPU during packaging. No paid API was called. The new GPU environments and complete training paths have not been runtime-tested in this packaging pass.
 
-`checksums.json` lists the distributed files. See `LICENSE` for the limited reproduction permission and `THIRD_PARTY_NOTICES.md` for upstream terms. Generated outputs stay under `outputs/` by default.
+`checksums.json` lists the distributed files. See [README.md](README.md#license) for the Apache-2.0 code and CC BY 4.0 documentation/prediction licenses, and `THIRD_PARTY_NOTICES.md` for upstream terms. Generated outputs stay under `outputs/` by default.
