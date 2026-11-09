@@ -1,2 +1,3 @@
-# Optional only for downloading/restoring raw benchmark text.
+# Optional for restoring, exporting, or loading community data.
 pyarrow==25.0.1
+datasets==5.0.1

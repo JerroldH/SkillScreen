@@ -1,0 +1,2 @@
+# Static test input for the dependency checker; do not install.
+requests==2.31.0

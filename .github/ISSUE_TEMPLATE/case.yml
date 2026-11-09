@@ -1,0 +1,42 @@
+name: Share a skill or dependency case
+description: A useful source link and explanation are enough to get started.
+title: "[Case] "
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What are you sharing?
+      options:
+        - Benign skill or false alarm
+        - Malicious skill or missed attack
+        - Package context changes the assessment
+        - Dependency or vulnerable-version concern
+        - Unsure, needs review
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Public source URL
+      description: Link the skill or package. A fixed commit link is ideal.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What should we look at?
+      description: Explain the behavior and relevant file. For dependency risk, include the package version and advisory link. Avoid private data or secrets.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Optional details
+      description: Upstream revision and license, scan result, or metadata-only draft from scripts/contribute.py. Do not upload the whole source package.
+  - type: checkboxes
+    id: permission
+    attributes:
+      label: Contribution terms
+      options:
+        - label: I may share my explanation and annotations under CC BY 4.0. Linked third-party material retains its original terms.
+          required: true

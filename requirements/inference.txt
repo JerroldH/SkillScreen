@@ -1,0 +1,6 @@
+# Verified Linux GPU runtime for the existing HF v1.1 inference recipe.
+# CUDA GPU with BF16 support; the smoke check used an NVIDIA L4.
+torch==2.11.0
+transformers==5.17.0
+huggingface_hub==1.33.0
+flash-linear-attention==0.6.0

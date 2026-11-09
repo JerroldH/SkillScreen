@@ -1,0 +1,28 @@
+{
+  "package": {
+    "repo_id": "SkillScreen/SkillScreen-2B-Package-Experimental",
+    "revision": "025dae85d31deb79fe0050425f6b6d60f636813d",
+    "release": "v1.1",
+    "training_scope": "train_only",
+    "input_scope": "package",
+    "dataset": "ProtectSkills/MaliciousSkillBench",
+    "dataset_revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "protocol": "source_balanced_random",
+    "cohort": "Recovered SRC010 packages; package-sbr-s42-r001",
+    "threshold_source": "Native score >= 0.5; no transferred recall guarantee",
+    "max_length": 32768
+  },
+  "markdown": {
+    "repo_id": "SkillScreen/SkillScreen-2B-SBR",
+    "revision": "4ff9a3edb6e1df8cfb23b32dda4fd925f85eb36e",
+    "release": "v1.1",
+    "training_scope": "train_only",
+    "input_scope": "markdown",
+    "dataset": "ProtectSkills/MaliciousSkillBench",
+    "dataset_revision": "d4b42ce5766a6e0359c987cf59c1007cb3795a90",
+    "protocol": "source_balanced_random",
+    "cohort": "Original SKILL.md cohort; direct-sbr-s42",
+    "threshold_source": "Native score >= 0.5; no transferred recall guarantee",
+    "max_length": 8192
+  }
+}
