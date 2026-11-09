@@ -1,0 +1,27 @@
+{
+  "primary": {
+    "url": "https://huggingface.co/datasets/ProtectSkills/MaliciousSkillBench/resolve/d4b42ce5766a6e0359c987cf59c1007cb3795a90/primary.parquet",
+    "sha256": "1d6382017f259bde0b699d402318f3c03f16b2e8ed2363a346b77a5465f06a06",
+    "format": "parquet"
+  },
+  "skilltrust": {
+    "url": "https://huggingface.co/datasets/cuhk-zhuque/SkillTrustBench/resolve/f90517b7058fdcfea89af114c069fbf973f42bc7/benchmark_full_v1.0.zip",
+    "sha256": "e1d8950ef01c3b24fa80e32101844abc8c5ab3a0a38525427e8b16f00a414ae4",
+    "format": "zip"
+  },
+  "SRC001": {
+    "url": "https://raw.githubusercontent.com/protectskills/MaliciousSkillBench/893afd609be22a2dfac5a2b94bbebb4eeb99515e/packages/SRC001_packages.tar.gz",
+    "sha256": "878498b42d9c67d0b084ef416153d69742ef75e57c938d7a38614f9bb914c3db",
+    "format": "tar.gz"
+  },
+  "SRC009": {
+    "url": "https://raw.githubusercontent.com/protectskills/MaliciousSkillBench/893afd609be22a2dfac5a2b94bbebb4eeb99515e/packages/SRC009_packages.tar.gz",
+    "sha256": "10bf2de3d35b50a3c8888356831d43b4963f61f726cab931aeab33ecd60c882f",
+    "format": "tar.gz"
+  },
+  "SRC012": {
+    "url": "https://raw.githubusercontent.com/protectskills/MaliciousSkillBench/893afd609be22a2dfac5a2b94bbebb4eeb99515e/packages/SRC012_artifacts.tar.gz",
+    "sha256": "b57c3663d9d943802bdb341659ba8e0cd0ffa4befcac407e268f4a8ad9a6398d",
+    "format": "tar.gz"
+  }
+}

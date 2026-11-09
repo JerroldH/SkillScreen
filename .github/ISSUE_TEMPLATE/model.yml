@@ -1,0 +1,44 @@
+name: Share a model
+description: Add another model or inference approach to the community.
+title: "[Model] "
+body:
+  - type: input
+    id: source
+    attributes:
+      label: Checkpoint or code URL
+      description: Include a revision and license if available.
+    validations:
+      required: true
+  - type: dropdown
+    id: input
+    attributes:
+      label: Input scope
+      options:
+        - SKILL.md
+        - SKILL.md and supporting files
+        - Another input scope, described below
+    validations:
+      required: true
+  - type: dropdown
+    id: training_scope
+    attributes:
+      label: Training scope
+      description: Both categories can be publicly released. Include earlier fine-tuning in the training history.
+      options:
+        - Train-only evaluation model
+        - All-data deployment model
+        - Other or unknown, described below
+    validations:
+      required: true
+  - type: textarea
+    id: usage
+    attributes:
+      label: How to run it
+      description: A small command or example, hardware needs, and what the output score means.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Training and evaluation
+      description: Give the dataset revision, protocol and training partitions, earlier checkpoint history, and known evaluation overlap. For results, include raw scores and how the threshold was selected. Results are optional for an initial proposal.
