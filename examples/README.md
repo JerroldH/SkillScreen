@@ -40,18 +40,20 @@ manifests as unresolved. It does not resolve transitive dependencies, container
 images, or installation instructions inside Markdown. No matches is not a
 certificate of safety. Dependency evidence remains separate from maliciousness.
 
-## Use an existing model
+## Use a deployment model
 
     python -m pip install -r requirements/inference.txt
     python scan.py examples/local-inventory --checks model --output outputs/model.json
 
-This uses the released Package-Experimental model, its original 32K input
-formatter, and its native 0.5 threshold. It requires a CUDA GPU with BF16 support
+This uses Package v0.1.0, its 32K input formatter, and its saved OOF high-recall
+threshold (approximately 0.288). It requires a CUDA GPU with BF16 support
 and downloads the pinned HF checkpoint on first use. For SKILL.md-only scoring:
 
     python scan.py examples/local-inventory --checks model --mode markdown
 
-That uses the released SBR model and its original 8K input recipe. Model outputs
+That uses Markdown v0.1.0, its 8K input recipe and a native 0.5 threshold.
+Add `--operating-point high-recall` to select its saved OOF high-recall threshold.
+Model outputs
 are native scores, not newly calibrated probabilities or a promise of 99% recall.
 The report identifies the model revision and records token truncation. Package
 mode includes per-file token coverage. Use --checks all to run both components;

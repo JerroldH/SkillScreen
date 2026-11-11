@@ -66,7 +66,7 @@ Python packages installed through the requirements files retain their own licens
 ## Community tools
 
 The package formatter in `scripts/package_inputs.py` is a reduced copy of our
-[released Package-Experimental input code](https://huggingface.co/SkillScreen/SkillScreen-2B-Package-Experimental/blob/025dae85d31deb79fe0050425f6b6d60f636813d/package_inputs.py),
+[released Package-SBR input code](https://huggingface.co/SkillScreen/SkillScreen-2B-Package-SBR/blob/025dae85d31deb79fe0050425f6b6d60f636813d/package_inputs.py),
 released under Apache-2.0. The example packages in `examples/` are project-authored
 code examples under Apache-2.0, not redistributed benchmark samples.
 

@@ -17,14 +17,18 @@ including the starting checkpoint, determines evaluation overlap.
 
 | Model | Input | Training scope | Training data |
 | --- | --- | --- | --- |
-| [Package-Experimental](https://huggingface.co/SkillScreen/SkillScreen-2B-Package-Experimental) | SKILL.md and supporting files, 32K | Train-only | Recovered SRC010 packages in the original SBR training split, seed 42 |
-| [SBR](https://huggingface.co/SkillScreen/SkillScreen-2B-SBR) | SKILL.md, 8K | Train-only | Original MaliciousSkillBench SBR training split, seed 42 |
+| [Package v0.1.0](https://huggingface.co/SkillScreen/SkillScreen-2B-Package) | SKILL.md and supporting files, 32K | All-data | 11,831 eligible public packages, seed 42 |
+| [Markdown v0.1.0](https://huggingface.co/SkillScreen/SkillScreen-2B-Markdown) | SKILL.md, 8K | All-data | 13,514 public Markdown records, seed 42 |
 
-Exact model and dataset revisions are in [community-models.json](configs/community-models.json).
-The CLI uses each released model's native score and a 0.5 review threshold.
-It does not substitute a validation-selected or OOF threshold.
+Model versions are pinned in [community-models.json](configs/community-models.json).
+Each model includes its dataset revision and full-precision thresholds in
+`deployment_settings.json`. Package defaults to the frozen 99% OOF recall point.
+Markdown defaults to native 0.5. Use `--operating-point high-recall` for the saved
+99% OOF recall point, or `--operating-point native` for 0.5.
+The optional `balanced` policy maximizes recall minus FPR among the three
+predeclared 95/98/99% OOF recall gates. It does not search all thresholds.
 
-The community entry point has passed GPU inference checks on an NVIDIA L4 with
+The deployment entry point has passed GPU inference checks on an NVIDIA A100 with
 the pinned Linux runtime in `requirements/inference.txt`. Short fixtures and
 the full 8K/32K context limits were checked. These are execution checks, not
 new detection results. To repeat them, run
@@ -34,17 +38,19 @@ The published MSD and SD checkpoints retain their original evaluation protocols.
 They are available on [HF](https://huggingface.co/SkillScreen), but are not extra
 CLI backends in this first community version.
 
-## All-data deployment candidate
+## Deployment evaluation
 
-A separate local Markdown-only candidate has been trained on 10,079 deduplicated
-records, including the public benchmark and additional labeled material. It is
-an all-data refit. Its three-fold calibration results belong to the fold models,
-and the final refit does not have an independent test result from that pool.
+The two v0.1.0 releases use the public SkillScreen-Data pool. Three-fold OOF
+predictions keep normalized Markdown groups together and stratify by source and
+label. Each final model is a separate one-epoch refit on its full eligible pool.
+The cards report OOF metrics and include the predictions and frozen thresholds.
+The final refits have no independent held-out result from that same training pool.
 
-This candidate is not published or selected by `scan.py`. Its training pool is
-not the public metadata index in this repository. A later release can use the
-name `SkillScreen-2B-Deploy`, with its own training-data description and threshold
-settings. The existing model repositories will keep their experiment identities.
+The earlier private 10,079-record candidate is separate from these releases.
+SBR, MSD and SD retain their existing weights and experiment identities.
+[Package-SBR](https://huggingface.co/SkillScreen/SkillScreen-2B-Package-SBR), formerly
+Package-Experimental, is the original 32K model trained on recovered packages
+from the SBR training split. Its weights and existing version tags are unchanged.
 
 ## Contribute another model
 

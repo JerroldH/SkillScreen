@@ -48,7 +48,7 @@ Choose Markdown alone or Markdown with companion files, with the same case IDs.
 
 **v0.1** provides four full-text configurations in
 [SkillScreen/SkillScreen-Data](https://huggingface.co/datasets/SkillScreen/SkillScreen-Data).
-[GitHub](https://github.com/JerroldH/SkillScreen/tree/community-v0.1) keeps the
+[GitHub](https://github.com/JerroldH/SkillScreen/tree/v0.1.0) keeps the
 index, export scripts and contribution workflow.
 
 ## Load the data
