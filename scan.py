@@ -1,5 +1,6 @@
 """Inspect or screen a local skill package. Python 3.12+. Sample files are read only."""
 import argparse
+import json
 from datetime import datetime, timezone
 from pathlib import Path
 import sys
@@ -7,8 +8,13 @@ import sys
 from scripts.skill_package import read_package, write_json
 
 
-def scan(path, checks='model', mode=None, inspect_only=False):
+def scan(path, checks='model', mode=None, inspect_only=False, model_dir=None, operating_point='auto'):
     row, coverage = read_package(path)
+    bundled = Path(model_dir) if model_dir else Path(__file__).resolve().parent
+    settings_file = bundled / 'deployment_settings.json'
+    if mode is None and settings_file.is_file():
+        saved_mode = json.loads(settings_file.read_text(encoding='utf-8'))['input_mode']
+        mode = {'package32k': 'package', 'markdown8k': 'markdown'}[saved_mode]
     mode = mode or ('markdown' if coverage['input_kind'] == 'markdown_file' else 'package')
     report = {'created_at': datetime.now(timezone.utc).isoformat(),
               'package': coverage, 'model': {'status': 'not_run'},
@@ -21,7 +27,7 @@ def scan(path, checks='model', mode=None, inspect_only=False):
     if checks in ('model', 'all'):
         from scripts.model_score import score_model
         try:
-            report['model'] = score_model(row, mode)
+            report['model'] = score_model(row, mode, model_dir=model_dir, operating_point=operating_point)
         except (OSError, ValueError, RuntimeError, ImportError) as exc:
             report['model'] = {'status': 'unavailable', 'reason': str(exc)}
     return report
@@ -33,7 +39,8 @@ def print_summary(report):
     model = report['model']
     if model['status'] == 'complete':
         decision = 'review' if model['review'] else 'below the configured review threshold'
-        print(f"Model: {model['score']:.4f} / threshold {model['threshold']:.2f} ({decision}).")
+        print(f"Model: {model['score']:.6f} / threshold {model['threshold']:.6f} ({decision}).")
+        print(f"Release: {model['repo_id']} @ {model['revision']}; operating point: {model['operating_point']}.")
         print(f"Model input: {model['input_mode']}; {model['coverage']['used_tokens']} tokens; truncated={model['coverage']['truncated']}.")
     else:
         print('Model: ' + model['status'].replace('_', ' ') + '.')
@@ -56,11 +63,14 @@ def main(argv=None):
     parser.add_argument('--inspect', action='store_true', help='Offline inventory only; no models or network')
     parser.add_argument('--checks', choices=('model', 'dependencies', 'all'), default='model')
     parser.add_argument('--mode', choices=('package', 'markdown'), help='Defaults to package for a directory, markdown for a file')
+    parser.add_argument('--model-dir', type=Path, help='Use a downloaded deployment release instead of the Hub')
+    parser.add_argument('--operating-point', choices=('auto', 'native', 'high-recall', 'balanced'), default='auto',
+                        help='Saved operating point; auto uses the release default, native uses 0.5')
     parser.add_argument('--output', type=Path, help='Create a JSON report without raw file contents')
     args = parser.parse_args(argv)
     if args.output and (args.output.exists() or args.output.resolve().is_relative_to(args.path.resolve() if args.path.is_dir() else args.path.parent.resolve())):
         parser.error('Choose a new output file outside the input package.')
-    report = scan(args.path, args.checks, args.mode, args.inspect)
+    report = scan(args.path, args.checks, args.mode, args.inspect, args.model_dir, args.operating_point)
     if args.output:
         write_json(args.output, report)
     print_summary(report)

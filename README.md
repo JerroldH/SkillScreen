@@ -20,7 +20,7 @@ its instructions and supporting files, or contribute a case for review.
 Use Python 3.12+. This first command needs no extra packages or network access.
 
 ```sh
-git clone --branch community-v0.1 https://github.com/JerroldH/SkillScreen.git
+git clone --branch v0.1.0 https://github.com/JerroldH/SkillScreen.git
 cd SkillScreen
 python scan.py examples/local-inventory --inspect --output outputs/inventory.json
 ```
@@ -40,18 +40,21 @@ python scan.py examples/local-inventory --output outputs/score.json
 
 | Input | Released model | Context |
 | --- | --- | --- |
-| Package directory, the default | [Package-Experimental](https://huggingface.co/SkillScreen/SkillScreen-2B-Package-Experimental) | 32K |
-| Single `SKILL.md`, or `--mode markdown` | [SBR](https://huggingface.co/SkillScreen/SkillScreen-2B-SBR) | 8K |
+| Package directory, the default | [Package v0.1.0](https://huggingface.co/SkillScreen/SkillScreen-2B-Package) | 32K |
+| Single `SKILL.md`, or `--mode markdown` | [Markdown v0.1.0](https://huggingface.co/SkillScreen/SkillScreen-2B-Markdown) | 8K |
 
-Both use the existing v1.1 weights and original input recipes, pinned in
+These are **all-data deployment releases**, pinned in
 [configs/community-models.json](configs/community-models.json). First use downloads
-the checkpoint. The report includes the native model score, the default 0.5 review
-threshold, and input coverage. Package mode records which files fit in the context.
-The threshold is not a guarantee of 99% recall on a new collection.
+the checkpoint. Package defaults to its frozen 99% OOF recall threshold
+(approximately 0.288). Markdown defaults to 0.5; add
+`--operating-point high-recall` to use its saved 99% OOF recall threshold.
+The JSON report includes the exact threshold, model identity, score and input
+coverage. Package mode records which files fit in the context.
 
-These two releases are **train-only evaluation models**. A future **all-data
-deployment release** will have its own name and training record. Package input
-does not imply all-data training. See [model scopes](MODELS.md).
+The [model cards](https://huggingface.co/SkillScreen) report OOF metrics used to
+select thresholds. They are not independent tests of the final all-data refits
+or guarantees for a new collection. The original paper checkpoints remain
+available separately. See [model scopes](MODELS.md).
 
 ### Check dependency versions separately
 
